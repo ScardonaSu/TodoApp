@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, status, Path, APIRouter
 from models import Todos
 from database import  SessionLocal
-
+from routers.auth import db_dependency
 
 # get_db()          abre y cierra una conexión de base de datos de forma segura.
 #
@@ -16,15 +16,6 @@ from database import  SessionLocal
 # Annotated[...]    es una forma moderna y limpia de tipar dependencias.
 
 router = APIRouter()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-db_dependency = Annotated[Session, Depends(get_db)]
 
 
 class TodoRequest(BaseModel):
