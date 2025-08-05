@@ -37,3 +37,14 @@ pip install -r requirements.txt
 
 # 4. Corre el servidor
 uvicorn main:app --reload
+
+
+The API will be available at:
+📍 http://127.0.0.1:8000
+📘 Automatic documentation: http://127.0.0.1:8000/docs
+
+
+
+Santiago Cardona
+📧 Email: santicardonas777@gmail.com
+🔗 [LinkedIn](https://www.linkedin.com/in/santo777/)
