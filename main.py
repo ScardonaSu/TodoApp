@@ -6,6 +6,8 @@ from fastapi import FastAPI, Depends, HTTPException, status, Path
 import models
 from models import Todos
 from database import engine, SessionLocal
+from routers import auth
+
 app = FastAPI()
 # get_db()          abre y cierra una conexión de base de datos de forma segura.
 #
@@ -16,6 +18,8 @@ app = FastAPI()
 # Annotated[...]    es una forma moderna y limpia de tipar dependencias.
 
 models.Base.metadata.create_all(bind=engine)
+
+app.include_router(auth.router)
 
 
 def get_db():
@@ -45,7 +49,7 @@ async def read_todo(db: db_dependency, todo_id:int = Path(gt=0)):
     todo_model = db.query(Todos).filter(Todos.id == todo_id).first()
     if todo_model is not None:
         return todo_model
-    raise HTTPException(status_code=404, detail='Todo not found.')
+    raise HTTPException(status_code=404, detail='Todo not found!!!.')
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
 async def create_todo(db: db_dependency, todo_request: TodoRequest):
