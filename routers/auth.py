@@ -20,6 +20,7 @@ class CreateUserRequest(BaseModel):
     password:str
     role: str
 
+# get_db()  abre y cierra una conexión de base de datos de forma segura.
 def get_db():
     db = SessionLocal()
     try:
@@ -27,6 +28,8 @@ def get_db():
     finally:
         db.close()
 
+# Depends(get_db)   le dice a FastAPI que esa función necesita acceso a la base de datos.
+# Annotated[...] es una forma moderna y limpia de tipa dependencias.
 db_dependency = Annotated[Session, Depends(get_db)]
 
 @router.post('/auth/', status_code=status.HTTP_201_CREATED)
