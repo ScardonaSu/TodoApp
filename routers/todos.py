@@ -27,9 +27,9 @@ class TodoRequest(BaseModel):
 
 #Get all table
 # read_all() usa esa conexión para devolver todos los registros.
-@router.get("/")
-async def read_all(db: db_dependency):
-    return db.query(Todos).all()
+@router.get("/", status_code=status.HTTP_200_OK)
+async def read_all(user: user_dependency, db: db_dependency):
+    return db.query(Todos).filter(Todos.owner_id == user.get('id')).all()
 
 #Get only ID
 @router.get("/todo/{todo_id}", status_code= status.HTTP_200_OK)
